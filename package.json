@@ -1,0 +1,27 @@
+{
+  "name": "@sunly95/gen-version",
+  "version": "1.0.1",
+  "description": "update version in package.json, and generate CHANGELOG",
+  "author": "Sunly <sunjingxiang1995@gmail.com>",
+  "keywords": [
+    "version",
+    "generate version",
+    "update version"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "gen-version": "node ./src/test/index.js"
+  },
+  "dependencies": {
+    "prettier": "^2.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjx1995/gen-version.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sjx1995/gen-version/issues"
+  },
+  "homepage": "https://github.com/sjx1995/gen-version#readme"
+}
