@@ -16,7 +16,7 @@ yarn add @sunly95/gen-version -D
 
 `/build/index.js`
 ```js
-import genVersion from "@sunly95/gen-version/src/index.js"
+const genVersion = require("@sunly95/gen-version")
 
 genVersion()
 ```

@@ -1,6 +1,6 @@
 {
   "name": "@sunly95/gen-version",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "update version in package.json, and generate CHANGELOG",
   "author": "Sunly <sunjingxiang1995@gmail.com>",
   "keywords": [
@@ -8,7 +8,7 @@
     "generate version",
     "update version"
   ],
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "gen-version": "node ./src/test/index.js"
   },
@@ -18,6 +18,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sjx1995/gen-version.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "license": "MIT",
   "bugs": {
