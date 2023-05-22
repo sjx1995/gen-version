@@ -12,9 +12,6 @@
   "scripts": {
     "gen-version": "node ./src/test/index.js"
   },
-  "dependencies": {
-    "prettier": "^2.5.1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sjx1995/gen-version.git"

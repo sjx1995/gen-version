@@ -7,9 +7,12 @@ const readline = require("readline");
 const fs = require("fs");
 const path = require("path");
 const { EOL } = require("os");
-const { execSync } = require("child_process");
-const dayjs = require("dayjs");
 const packageFile = require(path.resolve(process.cwd(), "./package.json"));
+
+const YEAR = new Date().getFullYear();
+const MONTH = (new Date().getMonth() + 1).toString().padStart(2, "0");
+const DAY = new Date().getDate().toString().padStart(2, "0");
+const TODAY = `${YEAR}-${MONTH}-${DAY}`;
 
 function main() {
   console.log("\n上次构建版本: ", packageFile.version);
@@ -33,9 +36,8 @@ function main() {
       packageFile.version = version;
       fs.writeFileSync(
         path.resolve(process.cwd(), "./package.json"),
-        JSON.stringify(packageFile)
+        JSON.stringify(packageFile, null, 2)
       );
-      execSync("npx prettier --write ./package.json");
       fs.readFile(
         path.resolve(process.cwd(), "./CHANGELOG.md"),
         { encoding: "utf-8" },
@@ -51,7 +53,7 @@ function main() {
           }
           const changeLogTemplate =
             `# 更新日志${EOL}${EOL}` +
-            `## [${version}] - ${dayjs().format("YYYY-MM-DD")}${EOL}${EOL}` +
+            `## [${version}] - ${TODAY}${EOL}${EOL}` +
             `### Added${EOL}${EOL}- 这里记录新增加了哪些功能／接口 ${EOL}${EOL}` +
             `### Changed${EOL}${EOL}- 功能／接口变更 ${EOL}${EOL}` +
             `### Deprecated${EOL}${EOL}- 不建议使用的功能／接口，将来会删掉 ${EOL}${EOL}` +
