@@ -4,27 +4,29 @@ update version in package.json, and generate CHANGELOG
 
 修改package.json版本号，并生成CHANGELOG.md
 
-## USAGE
+## 使用
 
-### install
+### 安装
 
 ```bash
-yarn add @sunly95/gen-version -D
+yarn add @sunly95/gen-version@latest -D
 ```
 
-### generate entry file
+### 引入文件
 
-`/build/index.js`
 ```js
-const genVersion = require("@sunly95/gen-version")
+// build/index.js
+const main = require("@sunly95/gen-version")
 
-genVersion()
+main()
 ```
 
-### add npm script
+每次调用`build/index.js`时就会自动生成`CHANGELOG.md`并修改`package.json`中的版本号
 
-`package.json`
+### 使用脚本配合build命令打包
+
 ```json
+// package.json
 {
   "script": {
     "build": "node ./build/index.js && yarn run build"
@@ -32,11 +34,35 @@ genVersion()
 }
 ```
 
-### build project and update version
+之后在打包时使用`yarn build`就可以直接调用`build/index.js`并打包
+
+## 配置
+
+运行命令：
 
 ```bash
-yarn run build
+npx @sunly95/gen-version init
 ```
+
+会在项目根目录生成`gen-version.config.json`文件，可以自由配置，默认配置项如下：
+
+```json
+{
+  title: "CHANGELOG 更新日志",  // CHANGELOG 标题
+  checkVersion: true,  // 检查版本号是否符合 Major.Minor.Patch 的格式
+  changelogTemplate: [
+    { 新增: "这里记录新增加了哪些功能／接口" },
+    { 更改: "这里记录更改了功能／接口变更" },
+    { 修复: "这里记录解决了哪些问题" },
+    { 废弃: "不建议使用的功能／接口，将来会删掉" },
+    { 移除: "之前不建议使用的功能／接口，这次真的删掉了" },
+    { 样式: "这里记录了样式的更改" },
+    { 类型: "这里记录了类型的更改" },
+    { 其他: "这里记录性能优化和安全性增强等改进" }
+  ] // CHANGELOG 模板，可以自定义
+}
+```
+
 
 ## CHANGELOG
 
