@@ -79,11 +79,14 @@ function createChangeLogTemplate(
   return (
     `# ${title}${EOL}${EOL}` +
     `## [${version}] - ${TODAY}${EOL}${EOL}` +
-    template.map((item) => {
-      const key = Object.keys(item)[0];
-      const value = Object.values(item)[0];
-      return `### ${key}${EOL}${EOL}- ${value} ${EOL}${EOL}`;
-    })
+    template
+      .map((item) => {
+        const key = Object.keys(item)[0];
+        const value = Object.values(item)[0];
+        return `### ${key}${EOL}${EOL}- ${value} ${EOL}`;
+      })
+      .join(EOL) +
+    EOL
   );
 }
 
@@ -112,21 +115,21 @@ function updateChangelog(
       "utf-8"
     );
     if (changelogFile.includes(`[${newVersion}]`)) {
-      throw new Error("CHANGELOG.md中已存在该版本号");
-    }
-
-    const changeLogTemplate = createChangeLogTemplate(
-      newVersion,
-      title,
-      template
-    );
-    if (changelogFile.startsWith(`# ${title}`)) {
-      changelogFile = changelogFile.replace(
-        `# ${title}${EOL}${EOL}`,
-        changeLogTemplate
-      );
+      console.log("CHANGELOG.md中已存在该版本号\n");
     } else {
-      changelogFile = changeLogTemplate + changelogFile + EOL + EOL;
+      const changeLogTemplate = createChangeLogTemplate(
+        newVersion,
+        title,
+        template
+      );
+      if (changelogFile.startsWith(`# ${title}`)) {
+        changelogFile = changelogFile.replace(
+          `# ${title}${EOL}${EOL}`,
+          changeLogTemplate
+        );
+      } else {
+        changelogFile = changeLogTemplate + changelogFile + EOL + EOL;
+      }
     }
   } catch (error: any) {
     throw new Error("更新CHANGELOG.md失败 " + error.message);
