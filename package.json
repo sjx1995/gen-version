@@ -1,6 +1,6 @@
 {
   "name": "@sunly95/gen-version",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "update version in package.json, and generate CHANGELOG",
   "author": "Sunly <sunjingxiang1995@gmail.com>",
   "keywords": [
