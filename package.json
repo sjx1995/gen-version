@@ -3,6 +3,7 @@
   "version": "1.0.4",
   "description": "update version in package.json, and generate CHANGELOG",
   "author": "Sunly <sunjingxiang1995@gmail.com>",
+  "type": "module",
   "keywords": [
     "version",
     "generate version",
@@ -10,8 +11,13 @@
   ],
   "main": "./src/index.js",
   "scripts": {
-    "gen-version": "node ./src/test/index.js"
+    "build": "rollup -c",
+    "test": "ts-node --esm ./test/index.ts",
+    "update:version": "ts-node --esm ./test/index.ts"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sjx1995/gen-version.git"
@@ -23,5 +29,14 @@
   "bugs": {
     "url": "https://github.com/sjx1995/gen-version/issues"
   },
-  "homepage": "https://github.com/sjx1995/gen-version#readme"
+  "homepage": "https://github.com/sjx1995/gen-version#readme",
+  "devDependencies": {
+    "@types/node": "^20.2.3",
+    "rollup": "^3.23.0",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.2",
+    "typescript": "^5.0.4"
+  }
 }
