@@ -12,11 +12,11 @@ import { defaultConfig, type IConfig } from "./config";
 function readConfig(): IConfig {
   const configPath = path.resolve(process.cwd(), "./gen-version.config.json");
   const isExist = fs.existsSync(configPath);
-  let userConfig = {};
+  let userConfig = "{}";
   if (isExist) {
     userConfig = fs.readFileSync(configPath, "utf-8");
   }
-  return { ...defaultConfig, ...JSON.parse(JSON.stringify(userConfig)) };
+  return { ...defaultConfig, ...JSON.parse(userConfig) };
 }
 
 function readPackageFile(): string {
