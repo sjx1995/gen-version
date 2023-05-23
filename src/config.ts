@@ -3,13 +3,13 @@
  * @Author: Sunly
  * @Date: 2023-05-23 09:18:29
  */
-type IConfig = {
+export type IConfig = {
   title: string;
   checkVersion: boolean;
   changelogTemplate: Record<string, string>[];
 };
 
-const defaultConfig: IConfig = {
+export const defaultConfig: IConfig = {
   title: "CHANGELOG 更新日志",
   checkVersion: true,
   changelogTemplate: [
@@ -23,5 +23,3 @@ const defaultConfig: IConfig = {
     { 其他: "这里记录性能优化和安全性增强等改进" },
   ],
 };
-
-export { type IConfig, defaultConfig };

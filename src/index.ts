@@ -7,7 +7,7 @@ import fs from "fs";
 import { EOL } from "os";
 import path from "path";
 import readline from "readline/promises";
-import { defaultConfig, type IConfig } from "./defaultConfig";
+import { defaultConfig, type IConfig } from "./config";
 
 function readConfig(): IConfig {
   const configPath = path.resolve(process.cwd(), "./gen-version.config.json");
