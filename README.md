@@ -1,6 +1,6 @@
 # @sunly95/gen-version
 
-update version in package.json, and generate CHANGELOG
+中文 ｜ [English](./README_EN.md)
 
 修改package.json版本号，并生成CHANGELOG.md
 
@@ -14,10 +14,19 @@ yarn add @sunly95/gen-version@latest -D
 
 ### 引入文件
 
+#### commonJS
+
 ```js
 // build/index.js
 const main = require("@sunly95/gen-version")
+main()
+```
 
+#### ESModule
+
+```js
+// build/index.js
+import main from "@sunly95/gen-version"
 main()
 ```
 
@@ -25,7 +34,7 @@ main()
 
 ### 使用脚本配合build命令打包
 
-```json
+```
 // package.json
 {
   "script": {
@@ -46,9 +55,10 @@ npx @sunly95/gen-version init
 
 会在项目根目录生成`gen-version.config.json`文件，可以自由配置，默认配置项如下：
 
-```json
+```
+// gen-version.config.json
 {
-  title: "CHANGELOG 更新日志",  // CHANGELOG 标题
+  title: "CHANGELOG",  // CHANGELOG 标题
   checkVersion: true,  // 检查版本号是否符合 Major.Minor.Patch 的格式
   changelogTemplate: [
     { 新增: "这里记录新增加了哪些功能／接口" },
@@ -63,11 +73,10 @@ npx @sunly95/gen-version init
 }
 ```
 
-
 ## CHANGELOG
 
 [CHANGELOG.md](./CHANGELOG.md)
 
 ## LICENSE
 
-[MIT LICENSE](./LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
