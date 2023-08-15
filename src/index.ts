@@ -6,8 +6,8 @@
 import fs from "fs";
 import { EOL } from "os";
 import path from "path";
-import readline from "readline/promises";
-import { defaultConfig, type IConfig } from "./config";
+import readline from "readline";
+import { defaultConfig, type IConfig } from "./config.js";
 
 function readConfig(): IConfig {
   const configPath = path.resolve(process.cwd(), "./gen-version.config.json");
@@ -35,13 +35,20 @@ function getCurVersion(fileContent: string): [number, number] {
 }
 
 async function readUserInput(checkVersion: boolean): Promise<string> {
-  const input = readline.createInterface({
+  function questionAsync(rl: readline.Interface, query: string) {
+    return new Promise<string>((resolve) => {
+      rl.question(query, resolve);
+    });
+  }
+
+  const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   });
+
   try {
-    const newVersion = await input.question("\n请输入本次构建的版本号: ");
-    input.close();
+    const newVersion = await questionAsync(rl, "\n请输入本次构建的版本号: ");
+    rl.close();
     if (!newVersion) {
       throw new Error("版本号不能为空");
     }

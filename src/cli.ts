@@ -6,7 +6,7 @@
  */
 import fs from "fs";
 import path from "path";
-import { defaultConfig } from "./config";
+import { defaultConfig } from "./config.js";
 
 fs.writeFileSync(
   path.resolve(process.cwd(), "./gen-version.config.json"),

@@ -10,16 +10,34 @@ export type IConfig = {
 };
 
 export const defaultConfig: IConfig = {
-  title: "CHANGELOG 更新日志",
+  title: "CHANGELOG",
   checkVersion: true,
   changelogTemplate: [
-    { 新增: "这里记录新增加了哪些功能／接口" },
-    { 更改: "这里记录更改了功能／接口变更" },
-    { 修复: "这里记录解决了哪些问题" },
-    { 废弃: "不建议使用的功能／接口，将来会删掉" },
-    { 移除: "之前不建议使用的功能／接口，这次真的删掉了" },
-    { 样式: "这里记录了样式的更改" },
-    { 类型: "这里记录了类型的更改" },
-    { 其他: "这里记录性能优化和安全性增强等改进" },
+    {
+      feat: "Records what features/interfaces have been added",
+    },
+    {
+      change: "Records changes in features/interfaces",
+    },
+    {
+      fix: "Records what issues have been resolved",
+    },
+    {
+      deprecated:
+        "Features/interfaces that are not recommended and will be removed in the future",
+    },
+    {
+      remove:
+        "Features/interfaces that were previously not recommended and are now truly removed",
+    },
+    {
+      style: "Records changes in style",
+    },
+    {
+      type: "Records changes in type",
+    },
+    {
+      Others: "Records performance optimizations and security enhancements",
+    },
   ],
 };
