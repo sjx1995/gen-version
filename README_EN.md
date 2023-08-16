@@ -15,7 +15,7 @@ yarn add @sunly95/gen-version@latest -D
 ### Use command to update version
 
 ```bash
-npx @sunly95/gen-version update
+npx -p @sunly95/gen-version update
 ```
 
 ### Use calling function to update version
@@ -45,7 +45,7 @@ use `build/index.js` to generate `CHANGELOG.md` and update `package.json` versio
 {
   "script": {
     "build": "node ./build/index.js && yarn run build",
-    "update:version": "npx @sunly95/gen-version update"
+    "update:version": "npx -p @sunly95/gen-version update"
   }
 }
 ```
@@ -54,7 +54,7 @@ run `npm run build` or `npm run update:version` to generate `CHANGELOG.md` and u
 
 ## Configuration
 
-run `npx @sunly95/gen-version init` to generate `gen-version.config.json` file in root directory:
+run `npx -p @sunly95/gen-version init` to generate `gen-version.config.json` file in root directory:
 
 ```bash
 npx @sunly95/gen-version init

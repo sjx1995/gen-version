@@ -19,7 +19,7 @@ yarn add @sunly95/gen-version@latest --dev
 ### 通过命令更新版本
 
 ```bash
-npx @sunly95/gen-version update
+npx -p @sunly95/gen-version update
 ```
 
 ### 手动调用更新函数更新版本
@@ -49,7 +49,7 @@ main()
 {
   "script": {
     "build": "node ./build/index.js && yarn run build",
-    "update:version": "npx @sunly95/gen-version update"
+    "update:version": "npx -p @sunly95/gen-version update"
   }
 }
 ```
@@ -61,7 +61,7 @@ main()
 运行命令：
 
 ```bash
-npx @sunly95/gen-version init
+npx -p @sunly95/gen-version init
 ```
 
 会在项目根目录生成`gen-version.config.json`文件，可以自由配置，默认配置项如下：
