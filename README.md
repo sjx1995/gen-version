@@ -9,10 +9,20 @@
 ### 安装
 
 ```bash
-yarn add @sunly95/gen-version@latest -D
+# npm
+npm install @sunly95/gen-version@latest --save-dev
+
+# yarn
+yarn add @sunly95/gen-version@latest --dev
 ```
 
-### 引入文件
+### 通过命令更新版本
+
+```bash
+npx @sunly95/gen-version update
+```
+
+### 手动调用更新函数更新版本
 
 #### commonJS
 
@@ -38,12 +48,13 @@ main()
 // package.json
 {
   "script": {
-    "build": "node ./build/index.js && yarn run build"
+    "build": "node ./build/index.js && yarn run build",
+    "update:version": "npx @sunly95/gen-version update"
   }
 }
 ```
 
-之后在打包时使用`yarn build`就可以直接调用`build/index.js`并打包
+之后在打包时使用 `npm run build` 或者 `npm run update:version` 就可以直接调用`build/index.js`并打包
 
 ## 配置
 

@@ -12,7 +12,13 @@ Upgrade package.json version and update CHANGLOG file
 yarn add @sunly95/gen-version@latest -D
 ```
 
-### require or import
+### Use command to update version
+
+```bash
+npx @sunly95/gen-version update
+```
+
+### Use calling function to update version
 
 #### commonJS
 
@@ -38,12 +44,13 @@ use `build/index.js` to generate `CHANGELOG.md` and update `package.json` versio
 // package.json
 {
   "script": {
-    "build": "node ./build/index.js && yarn run build"
+    "build": "node ./build/index.js && yarn run build",
+    "update:version": "npx @sunly95/gen-version update"
   }
 }
 ```
 
-run `yarn build` to generate `CHANGELOG.md` and update `package.json` version
+run `npm run build` or `npm run update:version` to generate `CHANGELOG.md` and update `package.json` version
 
 ## Configuration
 
@@ -61,14 +68,14 @@ you can custom `gen-version.config.json`, default config is:
   title: "CHANGELOG",  // CHANGELOG Title
   checkVersion: true,  // Whether to check the version number
   changelogTemplate: [
-    { "Addition": "Records what features/interfaces have been added" },
+    { "Feat": "Records what features/interfaces have been added" },
     { "Change": "Records changes in features/interfaces" },
     { "Fix": "Records what issues have been resolved" },
-    { "Deprecation": "Features/interfaces that are not recommended and will be removed in the future" },
-    { "Removal": "Features/interfaces that were previously not recommended and are now truly removed" },
+    { "Deprecated": "Features/interfaces that are not recommended and will be removed in the future" },
+    { "Remove": "Features/interfaces that were previously not recommended and are now truly removed" },
     { "Style": "Records changes in style" },
     { "Type": "Records changes in type" },
-    { "Others": "Records performance optimizations and security enhancements" }
+    { "Other": "Records performance optimizations and security enhancements" }
   ] // CHANGELOG template, you can custom it
 }
 ```
