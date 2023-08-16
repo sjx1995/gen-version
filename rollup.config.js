@@ -28,7 +28,14 @@ export default [
         format: "esm",
       },
     ],
-    plugins: [typescript(), terser(), cleanup(), addSheBang()],
+    plugins: [
+      typescript(),
+      terser(),
+      cleanup(),
+      addSheBang({
+        include: "./dist/cli.js",
+      }),
+    ],
   },
   {
     input: resolve(process.cwd(), "./src/update-version.ts"),
@@ -38,7 +45,14 @@ export default [
         format: "esm",
       },
     ],
-    plugins: [typescript(), terser(), cleanup(), addSheBang()],
+    plugins: [
+      typescript(),
+      terser(),
+      cleanup(),
+      addSheBang({
+        include: "./dist/update-version.js",
+      }),
+    ],
   },
   {
     input: resolve(process.cwd(), "./src/index.ts"),

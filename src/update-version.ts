@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
  * @Description: 直接调用index
  * @Author: Sunly
