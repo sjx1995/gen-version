@@ -31,6 +31,16 @@ export default [
     plugins: [typescript(), terser(), cleanup(), addSheBang()],
   },
   {
+    input: resolve(process.cwd(), "./src/update-version.ts"),
+    output: [
+      {
+        file: resolve(process.cwd(), "./dist/update-version.js"),
+        format: "esm",
+      },
+    ],
+    plugins: [typescript(), terser(), cleanup(), addSheBang()],
+  },
+  {
     input: resolve(process.cwd(), "./src/index.ts"),
     output: [
       {

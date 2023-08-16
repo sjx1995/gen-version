@@ -15,7 +15,8 @@
     "require": "./dist/index.cjs"
   },
   "bin": {
-    "init": "./dist/cli.js"
+    "init": "./dist/cli.js",
+    "update": "./dist/update-version.js"
   },
   "scripts": {
     "build": "rollup -c",

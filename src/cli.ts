@@ -8,10 +8,14 @@ import fs from "fs";
 import path from "path";
 import { defaultConfig } from "./config.js";
 
-fs.writeFileSync(
-  path.resolve(process.cwd(), "./gen-version.config.json"),
-  JSON.stringify(defaultConfig, null, 2),
-  { encoding: "utf-8" }
-);
+const configFilePath = path.resolve(process.cwd(), "./gen-version.config.json");
 
-console.log("创建配置文件成功");
+if (fs.existsSync(configFilePath)) {
+  console.log("配置文件已存在");
+  process.exit(1);
+} else {
+  fs.writeFileSync(configFilePath, JSON.stringify(defaultConfig, null, 2), {
+    encoding: "utf-8",
+  });
+  console.log("创建配置文件成功");
+}
