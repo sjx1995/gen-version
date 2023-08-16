@@ -14,30 +14,30 @@ export const defaultConfig: IConfig = {
   checkVersion: true,
   changelogTemplate: [
     {
-      feat: "Records what features/interfaces have been added",
+      Feat: "Records what features/interfaces have been added",
     },
     {
-      change: "Records changes in features/interfaces",
+      Change: "Records changes in features/interfaces",
     },
     {
-      fix: "Records what issues have been resolved",
+      Fix: "Records what issues have been resolved",
     },
     {
-      deprecated:
+      Deprecated:
         "Features/interfaces that are not recommended and will be removed in the future",
     },
     {
-      remove:
+      Remove:
         "Features/interfaces that were previously not recommended and are now truly removed",
     },
     {
-      style: "Records changes in style",
+      Style: "Records changes in style",
     },
     {
-      type: "Records changes in type",
+      Type: "Records changes in type",
     },
     {
-      Others: "Records performance optimizations and security enhancements",
+      Other: "Records performance optimizations and security enhancements",
     },
   ],
 };

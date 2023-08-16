@@ -9,21 +9,20 @@ import path from "path";
 import readline from "readline";
 import { defaultConfig, type IConfig } from "./config.js";
 
+const CHANGELOG_PATH = path.resolve(process.cwd(), "./CHANGELOG.md");
+const CONFIG_PATH = path.resolve(process.cwd(), "./gen-version.config.json");
+const PACKAGE_PATH = path.resolve(process.cwd(), "./package.json");
+
 function readConfig(): IConfig {
-  const configPath = path.resolve(process.cwd(), "./gen-version.config.json");
-  const isExist = fs.existsSync(configPath);
   let userConfig = "{}";
-  if (isExist) {
-    userConfig = fs.readFileSync(configPath, "utf-8");
+  if (fs.existsSync(CONFIG_PATH)) {
+    userConfig = fs.readFileSync(CONFIG_PATH, "utf-8");
   }
   return { ...defaultConfig, ...JSON.parse(userConfig) };
 }
 
 function readPackageFile(): string {
-  return fs.readFileSync(
-    path.resolve(process.cwd(), "./package.json"),
-    "utf-8"
-  );
+  return fs.readFileSync(PACKAGE_PATH, "utf-8");
 }
 
 function getCurVersion(fileContent: string): [number, number] {
@@ -68,7 +67,7 @@ function updatePackageVersion(
   newVersion: string
 ): void {
   fs.writeFileSync(
-    path.resolve(process.cwd(), "./package.json"),
+    PACKAGE_PATH,
     fileContent.slice(0, start) + newVersion + fileContent.slice(end)
   );
 }
@@ -102,14 +101,11 @@ function updateChangelog(
   title: string,
   template: Record<string, string>[]
 ): void {
-  const isExist = fs.existsSync(path.resolve(process.cwd(), "./CHANGELOG.md"));
-  if (!isExist) {
+  if (!fs.existsSync(CHANGELOG_PATH)) {
     try {
-      fs.writeFileSync(
-        path.resolve(process.cwd(), "./CHANGELOG.md"),
-        `# CHANGELOG 更新日志${EOL}${EOL}`,
-        { encoding: "utf-8" }
-      );
+      fs.writeFileSync(CHANGELOG_PATH, `# ${title}${EOL}${EOL}`, {
+        encoding: "utf-8",
+      });
     } catch (error: any) {
       throw new Error("创建CHANGELOG.md失败 " + error.message);
     }
@@ -117,10 +113,7 @@ function updateChangelog(
 
   let changelogFile = "";
   try {
-    changelogFile = fs.readFileSync(
-      path.resolve(process.cwd(), "./CHANGELOG.md"),
-      "utf-8"
-    );
+    changelogFile = fs.readFileSync(CHANGELOG_PATH, "utf-8");
     if (changelogFile.includes(`[${newVersion}]`)) {
       console.log("CHANGELOG.md中已存在该版本号\n");
     } else {
@@ -143,11 +136,7 @@ function updateChangelog(
   }
 
   try {
-    fs.writeFileSync(
-      path.resolve(process.cwd(), "./CHANGELOG.md"),
-      changelogFile,
-      { encoding: "utf-8" }
-    );
+    fs.writeFileSync(CHANGELOG_PATH, changelogFile, { encoding: "utf-8" });
   } catch (error: any) {
     throw new Error("写入CHANGELOG.md失败 " + error.message);
   }
