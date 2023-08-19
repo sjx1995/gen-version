@@ -6,8 +6,9 @@
 import fs from "fs";
 import { EOL } from "os";
 import path from "path";
-import readline from "readline";
 import { defaultConfig, type IConfig } from "./config.js";
+import input from "@inquirer/input";
+import select from "@inquirer/select";
 
 const CHANGELOG_PATH = path.resolve(process.cwd(), "./CHANGELOG.md");
 const CONFIG_PATH = path.resolve(process.cwd(), "./gen-version.config.json");
@@ -25,36 +26,82 @@ function readPackageFile(): string {
   return fs.readFileSync(PACKAGE_PATH, "utf-8");
 }
 
-function getCurVersion(fileContent: string): [number, number] {
+function getCurVersion(fileContent: string): [number, number, string] {
   const startVersion = fileContent.indexOf(`"version":`) + 10;
   const startIndex = fileContent.indexOf(`"`, startVersion) + 1;
   const endIndex = fileContent.indexOf(`"`, startIndex);
-  console.log("\n当前构建版本：", fileContent.slice(startIndex, endIndex));
-  return [startIndex, endIndex];
+  const curVersion = fileContent.slice(startIndex, endIndex);
+  console.log("\n当前构建版本：", curVersion);
+  return [startIndex, endIndex, curVersion];
 }
 
-async function readUserInput(checkVersion: boolean): Promise<string> {
-  function questionAsync(rl: readline.Interface, query: string) {
-    return new Promise<string>((resolve) => {
-      rl.question(query, resolve);
-    });
-  }
+async function readUserInput(
+  curVersion: string,
+  checkVersion: boolean
+): Promise<string> {
+  // function questionAsync(rl: readline.Interface, query: string) {
+  //   return new Promise<string>((resolve) => {
+  //     rl.question(query, resolve);
+  //   });
+  // }
 
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+  // const rl = readline.createInterface({
+  //   input: process.stdin,
+  //   output: process.stdout,
+  // });
+  const major = Number(curVersion.split(".")[0]);
+  const minor = Number(curVersion.split(".")[1]);
+  const patch = Number(curVersion.split(".")[2]);
+
+  const nextMajorVersion = `${major + 1}.0.0`;
+  const nextMinorVersion = `${major}.${minor + 1}.0`;
+  const nextPatchVersion = `${major}.${minor}.${patch + 1}`;
 
   try {
-    const newVersion = await questionAsync(rl, "\n请输入本次构建的版本号: ");
-    rl.close();
-    if (!newVersion) {
-      throw new Error("版本号不能为空");
+    const selectRes = await select({
+      message: "请选择本次构建的版本：",
+      choices: [
+        {
+          name: `不更新版本: ${curVersion}`,
+          value: curVersion,
+        },
+        {
+          name: `Patch: ${nextPatchVersion}`,
+          value: nextPatchVersion,
+        },
+        {
+          name: `Minor: ${nextMinorVersion}`,
+          value: nextMinorVersion,
+        },
+        {
+          name: `Major: ${nextMajorVersion}`,
+          value: nextMajorVersion,
+        },
+        {
+          name: "手动输入版本号",
+          value: "custom",
+        },
+      ],
+    });
+
+    if (selectRes !== "custom") {
+      return selectRes;
     }
-    if (checkVersion && !/^[0-9]+.[0-9]+.[0-9]+$/.test(newVersion)) {
-      throw new Error("请输入正确版本号，格式：Major.Minor.Patch");
-    }
-    return newVersion;
+
+    const inputRes = await input({
+      message: "请输入本次构建的版本号：",
+      validate: (value) => {
+        if (!value) {
+          return "版本号不能为空";
+        }
+        if (checkVersion && !/^[0-9]+.[0-9]+.[0-9]+$/.test(value)) {
+          return "请输入正确版本号，格式：Major.Minor.Patch";
+        }
+        return true;
+      },
+    });
+
+    return inputRes;
   } catch (error: any) {
     throw new Error("输入版本号发生错误 " + error.message);
   }
@@ -146,8 +193,8 @@ async function main() {
   try {
     const { changelogTemplate, checkVersion, title } = readConfig();
     const packageFile = readPackageFile();
-    const [replaceStart, replaceEnd] = getCurVersion(packageFile);
-    const newVersion = await readUserInput(checkVersion);
+    const [replaceStart, replaceEnd, curVersion] = getCurVersion(packageFile);
+    const newVersion = await readUserInput(curVersion, checkVersion);
     updatePackageVersion(packageFile, replaceStart, replaceEnd, newVersion);
     updateChangelog(newVersion, title, changelogTemplate);
     console.log("\n版本更新完成");
