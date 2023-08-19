@@ -1,9 +1,14 @@
+/*
+ * @Description:
+ * @Author: Sunly
+ * @Date: 2023-08-16 06:54:50
+ */
 import { resolve } from "path";
 import cleanup from "rollup-plugin-cleanup";
 import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 import addSheBang from "rollup-plugin-add-shebang";
-import typescript from "rollup-plugin-typescript";
+import typescript from "@rollup/plugin-typescript";
 
 export default [
   {
