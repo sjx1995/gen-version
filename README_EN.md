@@ -4,6 +4,8 @@
 
 Upgrade package.json version and update CHANGLOG file
 
+<img src="./screenshot.png" width=500 />
+
 ## Usage
 
 ### Install

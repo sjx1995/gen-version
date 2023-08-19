@@ -4,6 +4,8 @@
 
 修改package.json版本号，并生成CHANGELOG.md
 
+<img src="./screenshot.png" width=500 />
+
 ## 使用
 
 ### 安装
